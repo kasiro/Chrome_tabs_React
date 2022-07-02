@@ -1,0 +1,275 @@
+@import 'scss/_mixins';
+@import 'scss/_vars';
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: sans-serif;
+}
+@import 'scss/_in';
+@import 'scss/_Profile';
+@import 'scss/_Bluetooth';
+body {
+	min-height: 100vh;
+	background: $bg_color;
+	overflow: hidden;
+	// @include size(100, 100);
+}
+@keyframes open {
+	0% {
+		// width: 58px;
+		max-width: 58px;
+		// width: 200px;
+		// height: initial;
+	}
+	100% {
+		// width: 58px;
+		// width: initial;
+		// height: initial;
+		max-width: $menu_width;
+	}			
+}
+@keyframes FadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes close {
+	0% {
+		max-width: $menu_width;
+	}
+	25% {
+		max-width: 250px;
+		// top: 25px;
+	}
+	50% {
+		max-width: 200px;
+	}
+	75% {
+		max-width: 150px;
+		// top: 75px;
+	}
+	100% {
+		max-width: 60px;
+		padding-right: 0px;
+		// top: 100px;
+	}
+}
+.bar {
+	z-index: 10;
+	position: fixed;
+	width: 97.5%;
+	height: 60px;
+	// border-radius: 15px;
+	background-color: $bg_color;
+	top: 110px;
+	left: 20px;
+	.arrow {
+		z-index: 11;
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 60px;
+		height: 100%;
+		@include shadow($shadow_color);
+		@include main-radius('top', 10px);
+		@include main-radius('bottom', 10px);
+		float: left;
+		margin-right: 10px;
+		@include shadow($shadow_color);
+		@include main-radius('top', 10px);
+		@include main-radius('bottom', 10px);
+		ion-icon {
+			font-size: 1.5em;
+		}
+		&:hover {
+			cursor: pointer;
+		}
+	}
+	.bar_content {
+		z-index: 11;
+		@include main-radius('top', 10px);
+		@include main-radius('bottom', 10px);
+		// border-radius: 10px;
+		@include shadow($shadow_color);
+		background-color: $bg_color;
+		width: 50%;
+		height: 100%;
+		outline: none;
+		border: none;
+		padding-left: 20px;
+		font-weight: bold;
+	}
+}
+.navigation {
+	z-index: 10;
+	position: fixed;
+	top: 20px;
+	left: 20px;
+	bottom: 20px;
+	width: 97.5%;
+	height: 70px;
+	border-radius: 15px;
+	box-sizing: initial;
+	border-top: 5px solid $menu_bg_color;
+	background: $menu_bg_color;
+	// transition: 0.5s;
+	overflow-y: hidden;
+	ul {
+		position: absolute;
+		top: 0;
+		width: 100%;
+		padding-right: 40px;
+		padding-top: 5px;
+		.add {
+			margin-left: 10px;
+			.icon {
+				ion-icon {
+					font-size: 1.7em;
+					color: white;
+					border-radius: 50%;
+					// transition: 0.5s;
+					&:hover {
+						cursor: pointer;
+						// transition: 0.5s;
+						// color: gray;
+						// background-color: $bg_color;
+					}
+				}
+			}
+		}
+		li {
+			user-select: none;
+			position: relative;
+			display: inline-block;
+			list-style: none;
+			margin-left: 40px;
+			padding-right: 15px;
+			max-width: $menu_width;
+			height: 100%;
+			margin-top: 5px;
+			@include main-radius('top', 20px);
+			@include b_component(1, 'right');
+			@include b_component(2, 'left');
+			a {
+				position: relative;
+				list-style: none;
+				width: 100%;
+				display: flex;
+				text-decoration: none;
+				color: white;
+				.icon {
+					user-select: none;
+					position: relative;
+					display: block;
+					min-width: 60px;
+					height: 60px;
+					line-height: 70px;
+					text-align: center;
+					ion-icon {
+						font-size: 1.5em;
+					}
+				}
+				.icon:nth-child(2){
+					margin-left: -20px;
+				}
+				.title {
+					user-select: none;
+					position: relative;
+					display: block;
+					margin-left: -10px;
+					height: 60px;
+					line-height: 60px;
+				}
+				.closeTab {
+					&:hover {
+						cursor: default!important;
+					}
+					position: relative;
+					display: none;
+					height: 60px;
+					line-height: 70px;
+					margin-left: 10px;
+					font-size: 1.5em;
+				}
+			}
+			&.active {
+				cursor: default!important;
+				b:nth-child(1){
+					display: block;
+				}
+				b:nth-child(2){
+					display: block;
+				}
+				background: $bg_color;
+				a {
+					.icon {
+						position: relative;
+						display: block;
+						min-width: 60px;
+						height: 60px;
+						line-height: 70px;
+						text-align: center;
+						ion-icon[name="file-tray-outline"]{
+							transition: 0.5s;
+						}
+						ion-icon[name="file-tray"]{
+							font-size: 1.5em;
+							transition: 0.5s;
+							color: $menu_bg_color;
+						}
+					}
+					color: #333;
+					.closeTab {
+						cursor: pointer!important;
+						display: block;
+					}
+				}
+			}
+		}
+	}
+}
+.toggle {
+	position: fixed;
+	top: 20px;
+	right: 20px;
+	width: 50px;
+	height: 50px;
+	background: $menu_bg_color;
+	border-radius: 10px;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	&.active {
+		background: $menu_bg_color_active;
+		ion-icon {
+			position: absolute;
+			color: white;
+			font-size: 34px;
+			display: none;
+			&.open {
+				display: none;
+			}
+			&.close {
+				display: block;
+			}
+		}
+	}
+	ion-icon {
+		position: absolute;
+		color: white;
+		font-size: 34px;
+		display: none;
+		&.open {
+			display: block;
+		}
+		&.close {
+			display: none;
+		}
+	}
+}
